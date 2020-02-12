@@ -1,0 +1,28 @@
+============================================================
+          name num_output kernel_size stride padding dropout
+0        Input
+1        Conv1         96    [11, 11]      4   VALID
+2        ReLU1
+3        Pool1                 [3, 3]      2   VALID
+4        Conv2        256      [5, 5]      1    SAME
+5        ReLU2
+6        Pool2                 [3, 3]      2   VALID
+7        Conv3        384      [3, 3]      1    SAME
+8        ReLU3
+9        Conv4        384      [3, 3]      1    SAME
+10       ReLU4
+11       Conv5        192      [3, 3]      1    SAME
+12       ReLU5
+13       Pool5                 [3, 3]      2   VALID
+14    Flatten1
+15         Fc6        512
+16       ReLU6
+17    Dropout6                                           0.5
+18         Fc7        512
+19       ReLU7
+20    Dropout7                                           0.5
+21         Fc8         17
+22       Loss9
+23   Accuracy9
+24  Optimizer1
+============================================================
