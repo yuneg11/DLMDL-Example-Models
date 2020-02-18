@@ -1,0 +1,2916 @@
+{
+  "layers": [
+    {
+      "name": "Input",
+      "type": "imagenet_input",
+      "category": "input",
+      "inputs": {},
+      "attributes": {},
+      "outputs": [
+        "data",
+        "label"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Conv1",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Input.data"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 7, 7 ],
+        "num_output": 64,
+        "stride": 2,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Batchnorm1",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Conv1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+    {
+      "name": "Relu1",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Batchnorm1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block1_Pooling1",
+      "type": "pooling",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Relu1.output"
+        ]
+      },
+      "attributes": {
+        "pool_type": "MAX",
+        "kernel_size": [ 3, 3 ],
+        "stride": 2,
+        "padding": "VALID",
+        "global_pooling": false
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+    {
+      "name": "Block1_Conv1",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Pooling1.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 64,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Batchnorm1",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block1_Conv1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Relu1",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block1_Batchnorm1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Conv2",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Relu1.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 64,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Batchnorm2",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block1_Conv2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Eltwise1",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block1_Pooling1.output",
+          "Block1_Batchnorm2.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Relu2",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block1_Eltwise1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+    {
+      "name": "Block1_Conv3",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Relu2.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 64,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Batchnorm3",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block1_Conv3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Relu3",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block1_Batchnorm3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Conv4",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Relu3.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 64,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Batchnorm4",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block1_Conv4.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Eltwise2",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block1_Relu2.output",
+          "Block1_Batchnorm4.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Relu4",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block1_Eltwise2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Conv5",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Relu4.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 64,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Batchnorm5",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block1_Conv5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Relu5",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block1_Batchnorm5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Conv6",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Relu5.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 64,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Batchnorm6",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block1_Conv6.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Eltwise3",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block1_Relu4.output",
+          "Block1_Batchnorm6.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block1_Relu6",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block1_Eltwise3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block2_Conv0",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Relu6.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 2,
+        "padding": "VALID",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Conv1",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block1_Relu6.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 2,
+        "padding": "VALID",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm1",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu1",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Batchnorm1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Conv2",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu1.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm2",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Eltwise1",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block2_Conv0.output",
+          "Block2_Batchnorm2.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu2",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Eltwise1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block2_Conv3",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu2.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm3",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu3",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Batchnorm3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Conv4",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu3.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm4",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv4.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Eltwise2",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block2_Relu2.output",
+          "Block2_Batchnorm4.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu4",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Eltwise2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block2_Conv5",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu4.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm5",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu5",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Batchnorm5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Conv6",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu5.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm6",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv6.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Eltwise3",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block2_Relu4.output",
+          "Block2_Batchnorm6.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu6",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Eltwise3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block2_Conv7",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu6.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm7",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv7.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu7",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Batchnorm7.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Conv8",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu7.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 128,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Batchnorm8",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block2_Conv8.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Eltwise4",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block2_Relu6.output",
+          "Block2_Batchnorm8.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block2_Relu8",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block2_Eltwise4.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block3_Conv0",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu8.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 2,
+        "padding": "VALID",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Conv1",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block2_Relu8.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 2,
+        "padding": "VALID",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm1",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu1",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Batchnorm1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Conv2",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu1.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm2",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Eltwise1",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block3_Conv0.output",
+          "Block3_Batchnorm2.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu2",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Eltwise1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block3_Conv3",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu2.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm3",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu3",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Batchnorm3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Conv4",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu3.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm4",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv4.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Eltwise2",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block3_Relu2.output",
+          "Block3_Batchnorm4.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu4",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Eltwise2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block3_Conv5",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu4.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm5",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu5",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Batchnorm5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Conv6",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu5.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm6",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv6.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Eltwise3",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block3_Relu4.output",
+          "Block3_Batchnorm6.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu6",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Eltwise3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block3_Conv7",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu6.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm7",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv7.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu7",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Batchnorm7.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Conv8",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu7.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm8",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv8.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Eltwise4",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block3_Relu6.output",
+          "Block3_Batchnorm8.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu8",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Eltwise4.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block3_Conv9",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu8.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm9",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv9.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu9",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Batchnorm9.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Conv10",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu9.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm10",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv10.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Eltwise5",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block3_Relu8.output",
+          "Block3_Batchnorm10.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu10",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Eltwise5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block3_Conv11",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu10.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm11",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv11.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu11",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Batchnorm11.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Conv12",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu11.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 256,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Batchnorm12",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block3_Conv12.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Eltwise6",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block3_Relu10.output",
+          "Block3_Batchnorm12.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block3_Relu12",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block3_Eltwise6.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block4_Conv0",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu12.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 512,
+        "stride": 2,
+        "padding": "VALID",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Conv1",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block3_Relu12.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 512,
+        "stride": 2,
+        "padding": "VALID",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Batchnorm1",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block4_Conv1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Relu1",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block4_Batchnorm1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Conv2",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block4_Relu1.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 512,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Batchnorm2",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block4_Conv2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Eltwise1",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block4_Conv0.output",
+          "Block4_Batchnorm2.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Relu2",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block4_Eltwise1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block4_Conv3",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block4_Relu2.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 512,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Batchnorm3",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block4_Conv3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Relu3",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block4_Batchnorm3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Conv4",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block4_Relu3.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 512,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Batchnorm4",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block4_Conv4.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Eltwise2",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block4_Relu2.output",
+          "Block4_Batchnorm4.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Relu4",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block4_Eltwise2.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Block4_Conv5",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block4_Relu4.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 512,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Batchnorm5",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block4_Conv5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Relu5",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block4_Batchnorm5.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Conv6",
+      "type": "conv",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block4_Relu5.output"
+        ]
+      },
+      "attributes": {
+        "kernel_size": [ 3, 3 ],
+        "num_output": 512,
+        "stride": 1,
+        "padding": "SAME",
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "msra",
+            "mode": "IN"
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Batchnorm6",
+      "type": "batchnorm",
+      "category": "normalization",
+      "inputs": {
+        "input": [
+          "Block4_Conv6.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Eltwise3",
+      "type": "eltwise",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Block4_Relu4.output",
+          "Block4_Batchnorm6.output"
+        ]
+      },
+      "attributes": {
+        "operation": "SUM"
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+    {
+      "name": "Block4_Relu6",
+      "type": "relu",
+      "category": "activation",
+      "inputs": {
+        "input": [
+          "Block4_Eltwise3.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+
+
+
+    {
+      "name": "Pooling1",
+      "type": "pooling",
+      "category": "vision",
+      "inputs": {
+        "input": [
+          "Block4_Relu6.output"
+        ]
+      },
+      "attributes": {
+        "pool_type": "AVG",
+        "kernel_size": [ 3, 3 ],
+        "stride": 2,
+        "padding": "VALID",
+        "global_pooling": false
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+    {
+      "name": "Flatten1",
+      "type": "flatten",
+      "category": "utility",
+      "inputs": {
+        "input": [
+          "Pooling1.output"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+    {
+      "name": "Fc1",
+      "type": "fc",
+      "category": "common",
+      "inputs": {
+        "input": [
+          "Flatten1.output"
+        ]
+      },
+      "attributes": {
+        "num_output": 1000,
+        "bias_term": true,
+        "regularizer": {
+          "type": "L2",
+          "weight": 0.0001,
+          "bias": 0.0001
+        },
+        "initializer": {
+          "weight": {
+            "type": "normal",
+            "std": 0.01,
+            "mean": 0
+          },
+          "bias": {
+            "type": "constant",
+            "value": 0
+          }
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+    {
+      "name": "Loss1",
+      "type": "softmaxwithloss",
+      "category": "loss",
+      "inputs": {
+        "logits": [
+          "Fc1.output"
+        ],
+        "labels": [
+          "Input.label"
+        ]
+      },
+      "attributes": {},
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+    {
+      "name": "Optimizer1",
+      "type": "momentum",
+      "category": "optimizer",
+      "inputs": {
+        "loss": [
+          "Loss1.output"
+        ]
+      },
+      "attributes": {
+        "lr": 0.01,
+        "momentum": 0.9,
+        "lr_scheduler": {
+          "type": "exp",
+          "factor": 0.9,
+          "step": 10000
+        }
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    },
+    {
+      "name": "Accuracy1",
+      "type": "accuracy",
+      "category": "performance",
+      "inputs": {
+        "logits": [
+          "Fc1.output"
+        ],
+        "labels": [
+          "Input.label"
+        ]
+      },
+      "attributes": {
+        "topk": 1
+      },
+      "outputs": [
+        "output"
+      ],
+      "device": "worker0"
+    }
+  ],
+  "learning_option": {
+    "option": "TRAIN",
+    "data_path": "datasets/imagenet",
+    "batch_size": 64,
+    "iteration": 10000,
+    "train_display": 10,
+    "test_batch_size": 64,
+    "test_iteration": 10,
+    "test_interval": 100,
+    "test_data_path": "datasets/imagenet"
+  },
+  "cluster": [
+    {
+      "name": "worker0",
+      "ip": "129.254.182.217:2222",
+      "type": "gpu0",
+      "task": "worker"
+    }
+  ],
+  "createdAt": "2020-02-10T01:41:38.000Z",
+  "updatedAt": "2020-02-10T01:41:38.000Z"
+}
