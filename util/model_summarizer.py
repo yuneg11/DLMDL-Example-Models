@@ -2,6 +2,8 @@ import pandas as pd
 import json
 import sys
 
+pd.set_option('display.max_rows', 1000)
+
 
 def show_model(model):
     def show_layers(layers):
@@ -25,9 +27,9 @@ def show_model(model):
                     data[label].append("")
         df = pd.DataFrame(data)
 
-        print("=" * 60)
+        print("=" * 80)
         print(df)
-        print("=" * 60)
+        print("=" * 80)
     def show_learning_option(learning_option):
         pass
 

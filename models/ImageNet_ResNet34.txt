@@ -1,0 +1,132 @@
+================================================================================
+                   name num_output kernel_size stride padding dropout
+0                 Input
+1                 Conv1         64      [7, 7]      2    SAME
+2            Batchnorm1
+3                 Relu1
+4       Block1_Pooling1                 [3, 3]      2    SAME
+5          Block1_Conv1         64      [3, 3]      1    SAME
+6     Block1_Batchnorm1
+7          Block1_Relu1
+8          Block1_Conv2         64      [3, 3]      1    SAME
+9     Block1_Batchnorm2
+10      Block1_Eltwise1
+11         Block1_Relu2
+12         Block1_Conv3         64      [3, 3]      1    SAME
+13    Block1_Batchnorm3
+14         Block1_Relu3
+15         Block1_Conv4         64      [3, 3]      1    SAME
+16    Block1_Batchnorm4
+17      Block1_Eltwise2
+18         Block1_Relu4
+19         Block1_Conv5         64      [3, 3]      1    SAME
+20    Block1_Batchnorm5
+21         Block1_Relu5
+22         Block1_Conv6         64      [3, 3]      1    SAME
+23    Block1_Batchnorm6
+24      Block1_Eltwise3
+25         Block1_Relu6
+26         Block2_Conv0        128      [3, 3]      2    SAME
+27    Block2_Batchnorm0
+28         Block2_Conv1        128      [3, 3]      2    SAME
+29    Block2_Batchnorm1
+30         Block2_Relu1
+31         Block2_Conv2        128      [3, 3]      1    SAME
+32    Block2_Batchnorm2
+33      Block2_Eltwise1
+34         Block2_Relu2
+35         Block2_Conv3        128      [3, 3]      1    SAME
+36    Block2_Batchnorm3
+37         Block2_Relu3
+38         Block2_Conv4        128      [3, 3]      1    SAME
+39    Block2_Batchnorm4
+40      Block2_Eltwise2
+41         Block2_Relu4
+42         Block2_Conv5        128      [3, 3]      1    SAME
+43    Block2_Batchnorm5
+44         Block2_Relu5
+45         Block2_Conv6        128      [3, 3]      1    SAME
+46    Block2_Batchnorm6
+47      Block2_Eltwise3
+48         Block2_Relu6
+49         Block2_Conv7        128      [3, 3]      1    SAME
+50    Block2_Batchnorm7
+51         Block2_Relu7
+52         Block2_Conv8        128      [3, 3]      1    SAME
+53    Block2_Batchnorm8
+54      Block2_Eltwise4
+55         Block2_Relu8
+56         Block3_Conv0        256      [3, 3]      2    SAME
+57    Block3_Batchnorm0
+58         Block3_Conv1        256      [3, 3]      2    SAME
+59    Block3_Batchnorm1
+60         Block3_Relu1
+61         Block3_Conv2        256      [3, 3]      1    SAME
+62    Block3_Batchnorm2
+63      Block3_Eltwise1
+64         Block3_Relu2
+65         Block3_Conv3        256      [3, 3]      1    SAME
+66    Block3_Batchnorm3
+67         Block3_Relu3
+68         Block3_Conv4        256      [3, 3]      1    SAME
+69    Block3_Batchnorm4
+70      Block3_Eltwise2
+71         Block3_Relu4
+72         Block3_Conv5        256      [3, 3]      1    SAME
+73    Block3_Batchnorm5
+74         Block3_Relu5
+75         Block3_Conv6        256      [3, 3]      1    SAME
+76    Block3_Batchnorm6
+77      Block3_Eltwise3
+78         Block3_Relu6
+79         Block3_Conv7        256      [3, 3]      1    SAME
+80    Block3_Batchnorm7
+81         Block3_Relu7
+82         Block3_Conv8        256      [3, 3]      1    SAME
+83    Block3_Batchnorm8
+84      Block3_Eltwise4
+85         Block3_Relu8
+86         Block3_Conv9        256      [3, 3]      1    SAME
+87    Block3_Batchnorm9
+88         Block3_Relu9
+89        Block3_Conv10        256      [3, 3]      1    SAME
+90   Block3_Batchnorm10
+91      Block3_Eltwise5
+92        Block3_Relu10
+93        Block3_Conv11        256      [3, 3]      1    SAME
+94   Block3_Batchnorm11
+95        Block3_Relu11
+96        Block3_Conv12        256      [3, 3]      1    SAME
+97   Block3_Batchnorm12
+98      Block3_Eltwise6
+99        Block3_Relu12
+100        Block4_Conv0        512      [3, 3]      2    SAME
+101   Block4_Batchnorm0
+102        Block4_Conv1        512      [3, 3]      2    SAME
+103   Block4_Batchnorm1
+104        Block4_Relu1
+105        Block4_Conv2        512      [3, 3]      1    SAME
+106   Block4_Batchnorm2
+107     Block4_Eltwise1
+108        Block4_Relu2
+109        Block4_Conv3        512      [3, 3]      1    SAME
+110   Block4_Batchnorm3
+111        Block4_Relu3
+112        Block4_Conv4        512      [3, 3]      1    SAME
+113   Block4_Batchnorm4
+114     Block4_Eltwise2
+115        Block4_Relu4
+116        Block4_Conv5        512      [3, 3]      1    SAME
+117   Block4_Batchnorm5
+118        Block4_Relu5                                              
+119        Block4_Conv6        512      [3, 3]      1    SAME
+120   Block4_Batchnorm6
+121     Block4_Eltwise3
+122        Block4_Relu6
+123            Pooling1                 [1, 1]      1    SAME
+124            Flatten1
+125                 Fc1       1000
+126               Loss1
+127          Optimizer1
+128           Accuracy1
+================================================================================
